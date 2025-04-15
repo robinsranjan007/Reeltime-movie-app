@@ -1,0 +1,96 @@
+.section-wrapper {
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #f72798;
+  }
+  
+  .toggle-group {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    display: inline-flex;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  ::ng-deep .mat-button-toggle-group {
+    border: none;
+  }
+  
+  ::ng-deep .mat-button-toggle {
+    border-radius: 0 !important;
+    padding: 8px 16px;
+    font-weight: 600;
+  }
+  
+  ::ng-deep .mat-button-toggle-checked {
+    background-color: #f72798 !important;
+    color: #fff !important;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 10px;
+  }
+  
+  .movie-card {
+    width: 160px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .movie-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .poster-container {
+    position: relative;
+  }
+  
+  .poster-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .rating-badge {
+    position: absolute;
+    bottom: -12px;
+    left: 10px;
+    background-color: #101820;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 50%;
+    border: 2px solid #00ff99;
+  }
+  
+  .movie-info {
+    padding: 16px 10px 10px;
+    text-align: left;
+  }
+  
+  .movie-info h4 {
+    font-size: 14px;
+    margin: 10px 0 4px;
+    font-weight: 600;
+    color: #000;
+  }
+  
+  .movie-info p {
+    font-size: 12px;
+    color: #444;
+  }
+  

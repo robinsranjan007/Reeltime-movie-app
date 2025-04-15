@@ -1,0 +1,34 @@
+<div class="section-wrapper">
+    <h2 class="section-title">What's Popular</h2>
+  
+    <mat-button-toggle-group
+      class="toggle-group"
+      [(ngModel)]="activeToggle"
+      (change)="fetchContent(activeToggle)"
+      appearance="legacy"
+    >
+      <mat-button-toggle value="streaming">Streaming</mat-button-toggle>
+      <mat-button-toggle value="ontv">On TV</mat-button-toggle>
+      <mat-button-toggle value="forrent">For Rent</mat-button-toggle>
+      <mat-button-toggle value="intheaters">In Theaters</mat-button-toggle>
+    </mat-button-toggle-group>
+  
+    <div class="card-container">
+      <div class="movie-card" *ngFor="let item of popularContent | slice:0:18">
+        <div class="poster-container">
+          <img
+            [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path"
+            alt="{{ item.title || item.name }}"
+          />
+          <div class="rating-badge">
+            {{ (item.vote_average * 10) | number: '1.0-0' }}%
+          </div>
+        </div>
+        <div class="movie-info">
+          <h4>{{ item.title || item.name }}</h4>
+          <p>{{ item.release_date || item.first_air_date | date: 'mediumDate' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,32 @@
+<div class="section-wrapper">
+    <div class="section-header">
+      <h2 class="section-title">Trending</h2>
+    </div>
+  
+    <div class="toggle-wrapper">
+      <mat-button-toggle-group
+        [(ngModel)]="activeTab"
+        class="pink-toggle-group"
+        appearance="legacy"
+      >
+        <mat-button-toggle value="today">Today</mat-button-toggle>
+        <mat-button-toggle value="week">This Week</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  
+    <div class="card-container">
+      <div class="movie-card" *ngFor="let movie of moviesToDisplay | slice:0:18">
+        <div class="poster-container">
+          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title || movie.name }}" />
+          <div class="rating-badge">
+            {{ (movie.vote_average * 10) | number: '1.0-0' }}%
+          </div>
+        </div>
+        <div class="movie-info">
+          <h4>{{ movie.title || movie.name }}</h4>
+          <p>{{ movie.release_date || movie.first_air_date | date: 'mediumDate' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

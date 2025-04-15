@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+  <div class="nav-left">
+    <span class="logo">
+      <mat-icon>movie</mat-icon>
+      Realtime
+    </span>
+
+    <button mat-button routerLink="/home">Home</button>
+
+    <button mat-button [matMenuTriggerFor]="moviesMenu">
+      Movies
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="tvMenu">
+      TV Shows
+    </button>
+  </div>
+</mat-toolbar>
+
+<!-- Movies Dropdown -->
+<mat-menu #moviesMenu="matMenu">
+  <button mat-menu-item routerLink="/movies/popular">Popular</button>
+  <button mat-menu-item routerLink="/movies/now-playing">Now Playing</button>
+  <button mat-menu-item routerLink="/movies/upcoming">Upcoming</button>
+  <button mat-menu-item routerLink="/movies/top-rated">Top Rated</button>
+</mat-menu>
+
+<!-- TV Shows Dropdown -->
+<mat-menu #tvMenu="matMenu">
+  <button mat-menu-item routerLink="/tv/popular">Popular</button>
+  <button mat-menu-item routerLink="/tv/on-air">On Air</button>
+  <button mat-menu-item routerLink="/tv/airing-today">Airing Today</button>
+  <button mat-menu-item routerLink="/tv/top-rated">Top Rated</button>
+</mat-menu>
