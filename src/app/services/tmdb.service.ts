@@ -117,5 +117,18 @@ getAiringTodayTVShowsByPage(page: number): Observable<any> {
 }
 
 
+// 🔍 Get all genres
+getMovieGenres(): Observable<any> {
+  return this.http.get(`${this.baseUrl}/genre/movie/list?api_key=${this.apiKey}&language=en-US`);
+}
+
+// 🧠 Discover movies by genre & sorting
+getFilteredSortedMovies(genreId: number, sortBy: string, page: number = 1): Observable<any> {
+  return this.http.get(
+    `${this.baseUrl}/discover/movie?api_key=${this.apiKey}&language=en-US&sort_by=${sortBy}&with_genres=${genreId}&page=${page}`
+  );
+}
+
+
 
 }

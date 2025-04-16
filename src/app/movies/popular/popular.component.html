@@ -1,25 +1,53 @@
+<!-- Filter & Sort Bar -->
+<div class="filters">
+  <!-- Genre Select -->
+  <select [(ngModel)]="selectedGenre">
+    <option [value]="null">Filter by Genre</option>
+    <option *ngFor="let genre of genres" [value]="genre.id">{{ genre.name }}</option>
+  </select>
+
+  <!-- Sort Select -->
+  <select [(ngModel)]="selectedSort">
+    <option value="">Sort by</option>
+    <option *ngFor="let option of sortOptions" [value]="option.value">
+      {{ option.label }}
+    </option>
+  </select>
+
+  <!-- Buttons -->
+  <button (click)="applyFilters()">Apply</button>
+  <button (click)="resetFilters()" class="reset-btn">Reset</button>
+</div>
+
+
+<!-- Movie Cards -->
 <div class="movie-grid">
-    <div class="movie-card" *ngFor="let movie of paginatedMovies">
-      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" />
-      <div class="movie-info">
-        <h4>{{ movie.title }}</h4>
-        <p>{{ movie.release_date }}</p>
-        <span>{{ (movie.vote_average * 10) | number: '1.0-0' }}%</span>
+  <div class="movie-card" *ngFor="let movie of paginatedMovies" [title]="movie.title">
+    <div class="poster-wrapper">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" />
+      <div class="hover-overlay">
+        <span class="rating">{{ (movie.vote_average * 10) | number: '1.0-0' }}%</span>
+      </div>
+    </div>
+
+    <div class="movie-info">
+      <h4 title="{{ movie.title }}">{{ movie.title }}</h4>
+      <p class="release-date">{{ movie.release_date | date }}</p>
+
+      <div class="genre-tags">
+        <span class="genre-tag" *ngFor="let genre of getGenreNames(movie.genre_ids)">
+          🎬 {{ genre }}
+        </span>
       </div>
     </div>
   </div>
-  
-  <!-- Pagination Controls -->
-  <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">« Prev</button>
-  
-    <button 
-      *ngFor="let page of totalPagesArray" 
-      (click)="setPage(page)" 
-      [class.active]="page === currentPage">
-      {{ page }}
-    </button>
-  
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next »</button>
-  </div>
-  
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">« Prev</button>
+  <button *ngFor="let page of totalPagesArray" (click)="setPage(page)" [class.active]="page === currentPage">
+    {{ page }}
+  </button>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next »</button>
+</div>

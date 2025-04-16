@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 // Movies Layout
-import { MovieslayoutComponent } from './movies/movieslayout/movieslayout.component';
+ 
 
 // Movies Children
 import { PopularComponent as MoviePopularComponent } from './movies/popular/popular.component';
@@ -24,7 +24,7 @@ export const routes: Routes = [
 
   {
     path: 'movies',
-    component: MovieslayoutComponent,
+     
     children: [
       { path: 'popular', component: MoviePopularComponent },
       { path: 'now-playing', component: NowplayingComponent },
