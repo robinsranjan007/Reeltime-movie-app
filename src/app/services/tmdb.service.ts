@@ -82,4 +82,40 @@ getPopularInTheaters(): Observable<any> {
 }
 
 
+getPopularMoviesByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/movie/popular?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+
+getNowPlayingMoviesByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/movie/now_playing?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+getUpcomingMoviesByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/movie/upcoming?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+getTopRatedMoviesByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/movie/top_rated?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+
+getPopularTVShowsByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/tv/popular?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+getTopRatedTVShowsByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/tv/top_rated?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+getOnAirTVShowsByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/tv/on_the_air?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+getAiringTodayTVShowsByPage(page: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/tv/airing_today?api_key=${this.apiKey}&language=en-US&page=${page}`);
+}
+
+
+
 }

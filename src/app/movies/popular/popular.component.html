@@ -1,0 +1,25 @@
+<div class="movie-grid">
+    <div class="movie-card" *ngFor="let movie of paginatedMovies">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" />
+      <div class="movie-info">
+        <h4>{{ movie.title }}</h4>
+        <p>{{ movie.release_date }}</p>
+        <span>{{ (movie.vote_average * 10) | number: '1.0-0' }}%</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">« Prev</button>
+  
+    <button 
+      *ngFor="let page of totalPagesArray" 
+      (click)="setPage(page)" 
+      [class.active]="page === currentPage">
+      {{ page }}
+    </button>
+  
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next »</button>
+  </div>
+  

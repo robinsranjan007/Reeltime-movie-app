@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-movies',
+  selector: 'app-tvsidenavbar',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './movies.component.html',
-  styleUrls: ['./movies.component.css']
+  templateUrl: './tvsidenavbar.component.html',
+  styleUrls: ['./tvsidenavbar.component.css']
 })
-export class MoviesComponent {
-  
-}
+export class TvsidenavbarComponent {}
