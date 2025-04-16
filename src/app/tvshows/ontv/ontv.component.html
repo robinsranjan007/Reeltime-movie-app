@@ -1,1 +1,19 @@
-<p>ontv works!</p>
+<div class="tv-container">
+    <div class="tv-card" *ngFor="let show of paginatedTVShows">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + show.poster_path" alt="{{ show.name }}" />
+      <h4>{{ show.name }}</h4>
+      <p>{{ show.first_air_date }}</p>
+      <p>{{ show.vote_average * 10 | number: '1.0-0' }}%</p>
+    </div>
+  </div>
+  
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">« Prev</button>
+    <button *ngFor="let page of totalPagesArray"
+            [class.active]="currentPage === page"
+            (click)="setPage(page)">
+      {{ page }}
+    </button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next »</button>
+  </div>
+  

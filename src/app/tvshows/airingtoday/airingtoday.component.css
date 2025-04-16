@@ -1,0 +1,64 @@
+.tv-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .tv-card {
+    width: 160px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .tv-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+  
+  .tv-card h4 {
+    font-size: 14px;
+    margin: 10px 0 4px;
+    color: #222;
+  }
+  
+  .tv-card p {
+    font-size: 12px;
+    color: #555;
+    margin: 2px 0;
+  }
+  
+  .pagination {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .pagination button {
+    padding: 6px 12px;
+    border: none;
+    background: #f1f1f1;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background: #f72798;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

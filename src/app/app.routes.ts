@@ -13,7 +13,7 @@ import { TopratedComponent as MovieTopRatedComponent } from './movies/toprated/t
 // TV Shows Layout & Components
 import { TvshowsComponent } from './tvshows/tvshows.component';
 import { TvlayoutComponent } from './tvshows/tvlayout/tvlayout.component';
-import { PopularComponent as TvPopularComponent } from './tvshows/popular/popular.component';
+import { TvPopularComponent as TvPopularComponent } from './tvshows/popular/popular.component';
 import { OntvComponent } from './tvshows/ontv/ontv.component';
 import { AiringtodayComponent } from './tvshows/airingtoday/airingtoday.component';
 import { TopratedComponent as TvTopRatedComponent } from './tvshows/toprated/toprated.component';
@@ -35,7 +35,7 @@ export const routes: Routes = [
 
   {
     path: 'tv',
-    component: TvlayoutComponent, // layout directly
+    component: TvlayoutComponent,
     children: [
       { path: 'popular', component: TvPopularComponent },
       { path: 'on-air', component: OntvComponent },
@@ -43,5 +43,6 @@ export const routes: Routes = [
       { path: 'top-rated', component: TvTopRatedComponent }
     ]
   }
+  
   
 ];
