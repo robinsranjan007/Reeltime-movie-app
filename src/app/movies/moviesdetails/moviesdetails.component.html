@@ -1,37 +1,63 @@
 <div *ngIf="movie" class="details-wrapper" [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ')'">
-    <div class="overlay">
-      <div class="content">
-        <!-- Poster -->
-        <div class="poster">
-          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" />
+  <div class="overlay">
+    <div class="content">
+      <!-- Poster -->
+      <div class="poster">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" />
+      </div>
+
+      <!-- Info -->
+      <div class="info">
+        <h1>{{ movie.title }} <span class="year">({{ movie.release_date | date: 'yyyy' }})</span></h1>
+
+        <div class="meta">
+          <span>{{ movie.release_date | date:'mediumDate' }}</span> •
+          <span>{{ getGenreNames() }}</span> •
+          <span>{{ movie.runtime }} min</span>
         </div>
-  
-        <!-- Info -->
-        <div class="info">
-          <h1>{{ movie.title }} <span class="year">({{ movie.release_date | date: 'yyyy' }})</span></h1>
-          <div class="meta">
-            <span>{{ movie.release_date | date:'mediumDate' }}</span> •
-            <span>{{ getGenreNames() }}</span> •
-            <span>{{ movie.runtime }} min</span>
-          </div>
-  
-          <div class="score">
-            <div class="circle">{{ (movie.vote_average * 10) | number:'1.0-0' }}<span>%</span></div>
-            <span class="label">User Score</span>
-          </div>
-  
-          <p class="tagline"><em>{{ movie.tagline }}</em></p>
-  
-          <h3>Overview</h3>
-          <p>{{ movie.overview }}</p>
-  
-          <div class="crew">
-            <p><strong>Status:</strong> {{ movie.status }}</p>
-            <p><strong>Budget:</strong> ${{ movie.budget | number }}</p>
-            <p><strong>Revenue:</strong> ${{ movie.revenue | number }}</p>
-          </div>
+
+        <div class="score">
+          <div class="circle">{{ (movie.vote_average * 10) | number:'1.0-0' }}<span>%</span></div>
+          <span class="label">User Score</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="action"><mat-icon>playlist_add</mat-icon></button>
+          <button class="action"><mat-icon>favorite_border</mat-icon></button>
+          <button class="trailer"><mat-icon>play_arrow</mat-icon> Play Trailer</button>
+        </div>
+
+        <p class="tagline"><em>{{ movie.tagline }}</em></p>
+
+        <h3>Overview</h3>
+        <p>{{ movie.overview }}</p>
+
+        <div class="crew">
+          <p><strong>Status:</strong> {{ movie.status }}</p>
+          <p><strong>Budget:</strong> ${{ movie.budget | number }}</p>
+          <p><strong>Revenue:</strong> ${{ movie.revenue | number }}</p>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
+
+<!-- Reviews & Rating Section -->
+<div class="review-section">
+  <h2>Write a Review</h2>
+
+  <div class="rating-stars">
+    <mat-icon *ngFor="let star of [1,2,3,4,5]" (click)="selectedRating = star" [class.filled]="star <= selectedRating">
+      {{ star <= selectedRating ? 'star' : 'star_border' }}
+    </mat-icon>
+    <span class="rating-label">{{ selectedRating }}/5</span>
+  </div>
+
+  <textarea rows="4" placeholder="Write your review here..."></textarea>
+
+  <div class="review-actions">
+    <button class="submit">Submit Review</button>
+    <button class="reset" (click)="resetReview()">Reset</button>
+  </div>
+</div>
