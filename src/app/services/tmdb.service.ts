@@ -140,6 +140,10 @@ getFilteredSortedTVShows(genreId: number, sortBy: string, page: number = 1): Obs
   );
 }
 
+getMovieDetails(id: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/movie/${id}?api_key=${this.apiKey}&language=en-US`);
+}
+
 
 
 

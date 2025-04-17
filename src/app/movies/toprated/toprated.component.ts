@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TmdbService } from '../../services/tmdb.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router'; // ✅ Add this
 
 @Component({
   selector: 'app-toprated',
@@ -10,7 +11,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   templateUrl: './toprated.component.html',
   styleUrls: ['./toprated.component.css']

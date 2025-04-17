@@ -1,0 +1,93 @@
+.details-wrapper {
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0;
+    color: #fff;
+    min-height: 100vh;
+  }
+  
+  .overlay {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+  }
+  
+  .content {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    align-items: flex-start;
+  }
+  
+  .poster img {
+    width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  
+  .info {
+    flex: 1;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+  }
+  
+  .year {
+    font-weight: 300;
+    font-size: 1.5rem;
+    opacity: 0.8;
+  }
+  
+  .meta {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+    color: #ccc;
+  }
+  
+  .score {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .circle {
+    width: 50px;
+    height: 50px;
+    background: #0f0f0f;
+    border: 2px solid #00ff80;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #00ff80;
+  }
+  
+  .circle span {
+    font-size: 0.7rem;
+    margin-left: 2px;
+  }
+  
+  .label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ccc;
+  }
+  
+  .tagline {
+    font-style: italic;
+    color: #ccc;
+    margin: 10px 0;
+  }
+  
+  h3 {
+    margin: 20px 0 5px;
+  }
+  
+  .crew p {
+    margin: 4px 0;
+  }
+  
