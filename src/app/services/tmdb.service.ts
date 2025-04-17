@@ -129,6 +129,18 @@ getFilteredSortedMovies(genreId: number, sortBy: string, page: number = 1): Obse
   );
 }
 
+getTVGenres(): Observable<any> {
+  return this.http.get(`${this.baseUrl}/genre/tv/list?api_key=${this.apiKey}&language=en-US`);
+}
+
+
+getFilteredSortedTVShows(genreId: number, sortBy: string, page: number = 1): Observable<any> {
+  return this.http.get(
+    `${this.baseUrl}/discover/tv?api_key=${this.apiKey}&language=en-US&sort_by=${sortBy}&with_genres=${genreId}&page=${page}`
+  );
+}
+
+
 
 
 }

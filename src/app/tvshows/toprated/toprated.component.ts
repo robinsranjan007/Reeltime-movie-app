@@ -1,48 +1,85 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TmdbService } from '../../services/tmdb.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TmdbService } from '../../services/tmdb.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tv-toprated',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './toprated.component.html',
   styleUrls: ['./toprated.component.css']
 })
-export class TopratedComponent implements OnInit {
-  allShows: any[] = [];
+export class TvTopRatedComponent implements OnInit {
+  allTVShows: any[] = [];
   paginatedShows: any[] = [];
+  genres: any[] = [];
+  selectedGenre: number | null = null;
+  selectedSort: string = '';
   currentPage: number = 1;
   showsPerPage: number = 20;
+
+  sortOptions = [
+    { label: 'Rating Descending', value: 'vote_average.desc' },
+    { label: 'Rating Ascending', value: 'vote_average.asc' },
+    { label: 'First Air Date Descending', value: 'first_air_date.desc' },
+    { label: 'First Air Date Ascending', value: 'first_air_date.asc' }
+  ];
 
   constructor(private tmdb: TmdbService) {}
 
   ngOnInit(): void {
+    this.loadGenres();
     this.fetchTopRatedShows();
+  }
+
+  loadGenres() {
+    this.tmdb.getTVGenres().subscribe((res: any) => {
+      this.genres = res.genres;
+    });
   }
 
   fetchTopRatedShows() {
     const requests = Array.from({ length: 10 }, (_, i) =>
-      this.tmdb.getTopRatedTVShowsByPage(i + 1)
+      this.tmdb.getTopRatedTVShowsByPage(i + 1).toPromise()
     );
 
-    Promise.all(requests.map(req => req.toPromise()))
-      .then(responses => {
-        this.allShows = responses.flatMap(res => res.results);
+    Promise.all(requests).then(responses => {
+      this.allTVShows = responses.flatMap(res => res.results);
+      this.setPage(1);
+    });
+  }
+
+  applyFilters() {
+    if (!this.selectedGenre && !this.selectedSort) {
+      this.fetchTopRatedShows();
+      return;
+    }
+
+    this.tmdb
+      .getFilteredSortedTVShows(this.selectedGenre || 0, this.selectedSort, 1)
+      .subscribe(res => {
+        this.allTVShows = res.results;
         this.setPage(1);
       });
+  }
+
+  resetFilters() {
+    this.selectedGenre = null;
+    this.selectedSort = '';
+    this.fetchTopRatedShows();
   }
 
   setPage(page: number) {
     this.currentPage = page;
     const start = (page - 1) * this.showsPerPage;
     const end = start + this.showsPerPage;
-    this.paginatedShows = this.allShows.slice(start, end);
+    this.paginatedShows = this.allTVShows.slice(start, end);
   }
 
   get totalPages(): number {
-    return Math.ceil(this.allShows.length / this.showsPerPage);
+    return Math.ceil(this.allTVShows.length / this.showsPerPage);
   }
 
   get totalPagesArray(): number[] {
@@ -50,14 +87,14 @@ export class TopratedComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.setPage(this.currentPage + 1);
-    }
+    if (this.currentPage < this.totalPages) this.setPage(this.currentPage + 1);
   }
 
   prevPage() {
-    if (this.currentPage > 1) {
-      this.setPage(this.currentPage - 1);
-    }
+    if (this.currentPage > 1) this.setPage(this.currentPage - 1);
+  }
+
+  getGenreNames(genreIds: number[]): string[] {
+    return this.genres.filter(g => genreIds.includes(g.id)).map(g => g.name);
   }
 }
