@@ -1,13 +1,50 @@
-.nav-left {
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  overflow: visible;
+}
+
+.nav-left,
+.nav-right {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
 .logo {
+  font-size: 20px;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  font-weight: bold;
-  font-size: 20px;
   gap: 6px;
+}
+
+.avatar-icon {
+  font-size: 500px;
+  color: white;
+  vertical-align: middle;
+}
+
+
+.avatar-icon.mat-icon {
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 36px !important;
+}
+
+
+.username {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
 }

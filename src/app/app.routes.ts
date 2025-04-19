@@ -15,13 +15,16 @@ import { OntvComponent } from './tvshows/ontv/ontv.component';
 import { AiringtodayComponent } from './tvshows/airingtoday/airingtoday.component';
 import { TvTopRatedComponent } from './tvshows/toprated/toprated.component';
 import { TvdetailsComponent } from './tvshows/tvdetails/tvdetails.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'movie/:id', component: MoviesdetailsComponent }, // move this here
   { path: 'tvshow/:id', component: TvdetailsComponent },
-
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'movies',
     children: [
@@ -33,7 +36,6 @@ export const routes: Routes = [
  
     ]
   },
-
   {
     path: 'tv',
     children: [

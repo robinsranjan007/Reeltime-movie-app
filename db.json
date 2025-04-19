@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "f9f4",
+      "name": "Robins Ranjan",
+      "email": "robins@gmail.com",
+      "password": "robins007",
+      "likedMovies": [],
+      "watchLater": [],
+      "reviews": []
+    }
+  ]
+}
