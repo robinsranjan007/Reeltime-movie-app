@@ -14,7 +14,7 @@
   <button (click)="resetFilters()" class="reset-btn">Reset</button>
 </div>
 
-<!-- TV Grid -->
+<!-- TV Show Cards -->
 <div class="movie-grid">
   <div class="movie-card" *ngFor="let show of paginatedShows" [title]="show.name">
     <div class="poster-wrapper">
@@ -25,13 +25,17 @@
     </div>
 
     <div class="movie-info">
-      <h4>{{ show.name }}</h4>
+      <h4 title="{{ show.name }}">{{ show.name }}</h4>
       <p class="release-date">{{ show.first_air_date | date }}</p>
+
       <div class="genre-tags">
         <span class="genre-tag" *ngFor="let genre of getGenreNames(show.genre_ids)">
           📺 {{ genre }}
         </span>
       </div>
+
+      <!-- See Details Button -->
+      <a [routerLink]="['/tvshow', show.id]" class="details-btn">See Details</a>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router'; 
 @Component({
   selector: 'app-popular',
   standalone: true,
@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     MatSelectModule,
     MatButtonModule,
-    MatChipsModule
+    MatChipsModule,
+    RouterModule //
   ],
   templateUrl: './popular.component.html',
   styleUrls: ['./popular.component.css']

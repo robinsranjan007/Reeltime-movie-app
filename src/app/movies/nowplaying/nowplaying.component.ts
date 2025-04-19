@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { TmdbService } from '../../services/tmdb.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nowplaying',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule, HttpClientModule, FormsModule,RouterModule],
   templateUrl: './nowplaying.component.html',
   styleUrls: ['./nowplaying.component.css']
 })

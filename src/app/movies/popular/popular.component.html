@@ -19,7 +19,6 @@
   <button (click)="resetFilters()" class="reset-btn">Reset</button>
 </div>
 
-
 <!-- Movie Cards -->
 <div class="movie-grid">
   <div class="movie-card" *ngFor="let movie of paginatedMovies" [title]="movie.title">
@@ -39,6 +38,9 @@
           🎬 {{ genre }}
         </span>
       </div>
+
+      <!-- See Details Button -->
+      <a [routerLink]="['/movie', movie.id]" class="details-btn">See Details</a>
     </div>
   </div>
 </div>

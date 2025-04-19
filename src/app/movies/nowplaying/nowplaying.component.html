@@ -14,7 +14,7 @@
   <button (click)="resetFilters()" class="reset-btn">Reset</button>
 </div>
 
-<!-- Cards -->
+<!-- Movie Cards -->
 <div class="movie-grid">
   <div class="movie-card" *ngFor="let movie of paginatedMovies" [title]="movie.title">
     <div class="poster-wrapper">
@@ -28,8 +28,14 @@
       <h4>{{ movie.title }}</h4>
       <p class="release-date">{{ movie.release_date | date }}</p>
       <div class="genre-tags">
-        <span class="genre-tag" *ngFor="let genre of getGenreNames(movie.genre_ids)">🎬 {{ genre }}</span>
+        <span class="genre-tag" *ngFor="let genre of getGenreNames(movie.genre_ids)">
+          🎬 {{ genre }}
+        </span>
       </div>
+
+      <!-- See Details Button -->
+      <a [routerLink]="['/movie', movie.id]" class="details-btn">See Details</a>
+
     </div>
   </div>
 </div>
@@ -37,6 +43,8 @@
 <!-- Pagination -->
 <div class="pagination">
   <button (click)="prevPage()" [disabled]="currentPage === 1">« Prev</button>
-  <button *ngFor="let page of totalPagesArray" (click)="setPage(page)" [class.active]="page === currentPage">{{ page }}</button>
+  <button *ngFor="let page of totalPagesArray" (click)="setPage(page)" [class.active]="page === currentPage">
+    {{ page }}
+  </button>
   <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next »</button>
 </div>

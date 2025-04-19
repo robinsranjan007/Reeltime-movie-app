@@ -144,6 +144,9 @@ getMovieDetails(id: number): Observable<any> {
   return this.http.get(`${this.baseUrl}/movie/${id}?api_key=${this.apiKey}&language=en-US`);
 }
 
+getTVShowDetails(id: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/tv/${id}?api_key=${this.apiKey}&language=en-US`);
+}
 
 
 

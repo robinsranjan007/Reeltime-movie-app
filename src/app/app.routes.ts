@@ -6,7 +6,7 @@ import { PopularComponent as MoviePopularComponent } from './movies/popular/popu
 import { NowplayingComponent } from './movies/nowplaying/nowplaying.component';
 import { UpcomingComponent } from './movies/upcoming/upcoming.component';
 import { TopratedComponent as MovieTopRatedComponent } from './movies/toprated/toprated.component';
-import { MoviesdetailsComponent } from './movies/moviesdetails/moviesdetails.component'; // ✅ newly added
+import { MoviesdetailsComponent } from './movies/moviesdetails/moviesdetails.component';  
 
 // TV Shows
 import { TvshowsComponent } from './tvshows/tvshows.component';
@@ -14,11 +14,14 @@ import { TvPopularComponent } from './tvshows/popular/popular.component';
 import { OntvComponent } from './tvshows/ontv/ontv.component';
 import { AiringtodayComponent } from './tvshows/airingtoday/airingtoday.component';
 import { TvTopRatedComponent } from './tvshows/toprated/toprated.component';
+import { TvdetailsComponent } from './tvshows/tvdetails/tvdetails.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'movie/:id', component: MoviesdetailsComponent }, // move this here
+  { path: 'tvshow/:id', component: TvdetailsComponent },
+
   {
     path: 'movies',
     children: [
