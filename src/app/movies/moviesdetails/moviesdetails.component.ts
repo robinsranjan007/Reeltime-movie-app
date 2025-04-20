@@ -63,16 +63,18 @@ export class MoviesdetailsComponent implements OnInit {
   toggleWatchLater() {
     if (!this.currentUser) return alert('Please login to use Watch Later.');
 
-    const index = this.currentUser.watchLater.indexOf(this.movie.id);
-    let updatedWatchLater;
+    const exists = this.currentUser.watchLater?.some(
+      (item: any) => item.id === this.movie.id && item.type === 'movie'
+    );
 
-    if (index > -1) {
-      updatedWatchLater = this.currentUser.watchLater.filter((id: number) => id !== this.movie.id);
-    } else {
-      updatedWatchLater = [...this.currentUser.watchLater, this.movie.id];
-    }
+    let updatedWatchLater = exists
+      ? this.currentUser.watchLater.filter(
+          (item: any) => !(item.id === this.movie.id && item.type === 'movie')
+        )
+      : [...this.currentUser.watchLater, { id: this.movie.id, type: 'movie' }];
 
     const updatedUser = { ...this.currentUser, watchLater: updatedWatchLater };
+
     this.userService.updateUser(updatedUser).subscribe(updated => {
       localStorage.setItem('currentUser', JSON.stringify(updated));
       this.currentUser = updated;
@@ -82,16 +84,18 @@ export class MoviesdetailsComponent implements OnInit {
   toggleLiked() {
     if (!this.currentUser) return alert('Please login to like/unlike this movie.');
 
-    const index = this.currentUser.likedMovies.indexOf(this.movie.id);
-    let updatedLikedMovies;
+    const exists = this.currentUser.likedMovies?.some(
+      (item: any) => item.id === this.movie.id && item.type === 'movie'
+    );
 
-    if (index > -1) {
-      updatedLikedMovies = this.currentUser.likedMovies.filter((id: number) => id !== this.movie.id);
-    } else {
-      updatedLikedMovies = [...this.currentUser.likedMovies, this.movie.id];
-    }
+    let updatedLikedMovies = exists
+      ? this.currentUser.likedMovies.filter(
+          (item: any) => !(item.id === this.movie.id && item.type === 'movie')
+        )
+      : [...this.currentUser.likedMovies, { id: this.movie.id, type: 'movie' }];
 
     const updatedUser = { ...this.currentUser, likedMovies: updatedLikedMovies };
+
     this.userService.updateUser(updatedUser).subscribe(updated => {
       localStorage.setItem('currentUser', JSON.stringify(updated));
       this.currentUser = updated;
@@ -99,11 +103,15 @@ export class MoviesdetailsComponent implements OnInit {
   }
 
   isLiked(): boolean {
-    return this.currentUser?.likedMovies.includes(this.movie.id);
+    return this.currentUser?.likedMovies?.some(
+      (item: any) => item.id === this.movie.id && item.type === 'movie'
+    );
   }
 
   isWatchLater(): boolean {
-    return this.currentUser?.watchLater.includes(this.movie.id);
+    return this.currentUser?.watchLater?.some(
+      (item: any) => item.id === this.movie.id && item.type === 'movie'
+    );
   }
 
   submitReview() {
@@ -133,8 +141,11 @@ export class MoviesdetailsComponent implements OnInit {
   deleteReview(review: any) {
     if (!this.currentUser || review.userId !== this.currentUser.id) return;
 
-    const updatedReviews = this.currentUser.reviews.filter((r: any) => r.timestamp !== review.timestamp);
+    const updatedReviews = this.currentUser.reviews.filter(
+      (r: any) => r.timestamp !== review.timestamp
+    );
     const updatedUser = { ...this.currentUser, reviews: updatedReviews };
+
     this.userService.updateUser(updatedUser).subscribe(updated => {
       localStorage.setItem('currentUser', JSON.stringify(updated));
       this.currentUser = updated;

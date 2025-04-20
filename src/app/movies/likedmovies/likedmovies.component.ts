@@ -22,27 +22,32 @@ export class LikedmoviesComponent implements OnInit {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
-      const likedIds = this.currentUser.likedMovies || [];
-
-      // Fetch movie details for each liked movie ID
-      likedIds.forEach((id: number) => {
-        this.tmdb.getMovieDetails(id).subscribe(movie => {
-          this.movies.push(movie);
-        });
+      const likedItems = this.currentUser.likedMovies || [];
+  
+      likedItems.forEach((item: { id: number, type: string }) => {
+        if (item.type === 'movie') {
+          this.tmdb.getMovieDetails(item.id).subscribe(data => {
+            this.movies.push(data);
+          });
+        } else if (item.type === 'tv') {
+          this.tmdb.getTVShowDetails(item.id).subscribe(data => {
+            this.movies.push(data);
+          });
+        }
       });
     }
   }
+  
 
   removeMovie(id: number) {
-    // Remove ID from liked list
-    const updatedLiked = this.currentUser.likedMovies.filter((m: number) => m !== id);
+    const updatedLiked = this.currentUser.likedMovies.filter((m: any) => m.id !== id);
     const updatedUser = { ...this.currentUser, likedMovies: updatedLiked };
-
-    // Update user in db and localStorage
+  
     this.userService.updateUser(updatedUser).subscribe(updated => {
       this.currentUser = updated;
       localStorage.setItem('currentUser', JSON.stringify(updated));
       this.movies = this.movies.filter(movie => movie.id !== id);
     });
   }
+  
 }

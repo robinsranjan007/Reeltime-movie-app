@@ -3,15 +3,15 @@
   
     <div class="movie-grid">
       <div class="movie-card" *ngFor="let movie of movies">
-        <img class="poster" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title" />
+        <img class="poster" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title || movie.name" />
   
         <div class="info">
-          <h4 class="title">{{ movie.title }}</h4>
-          <p class="date">{{ movie.release_date | date }}</p>
+          <h4 class="title">{{ movie.title || movie.name }}</h4>
+          <p class="date">{{ movie.release_date || movie.first_air_date | date }}</p>
   
           <div class="actions">
-            <a [routerLink]="['/movie', movie.id]" class="details-btn">Details</a>
-            <button class="remove-btn" (click)="removeMovie(movie.id)">Remove</button>
+            <a [routerLink]="[movie.media_type === 'tv' || movie.type === 'tv' ? '/tvshow' : '/movie', movie.id]" class="details-btn">Details</a>
+            <button class="remove-btn" (click)="removeMovie(movie.id, movie.media_type || movie.type)">Remove</button>
           </div>
         </div>
       </div>

@@ -22,18 +22,24 @@ export class WatchlatermoviesComponent implements OnInit {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
       this.currentUser = JSON.parse(storedUser);
-      const ids = this.currentUser.watchLater || [];
+      const watchLaterItems = this.currentUser.watchLater || [];
 
-      ids.forEach((id: number) => {
-        this.tmdb.getMovieDetails(id).subscribe(movie => {
-          this.movies.push(movie);
-        });
+      watchLaterItems.forEach((item: { id: number, type: string }) => {
+        if (item.type === 'movie') {
+          this.tmdb.getMovieDetails(item.id).subscribe(data => {
+            this.movies.push(data);
+          });
+        } else if (item.type === 'tv') {
+          this.tmdb.getTVShowDetails(item.id).subscribe(data => {
+            this.movies.push(data);
+          });
+        }
       });
     }
   }
 
-  removeMovie(id: number) {
-    const updatedWatchLater = this.currentUser.watchLater.filter((m: number) => m !== id);
+  removeMovie(id: number, type: string) {
+    const updatedWatchLater = this.currentUser.watchLater.filter((m: any) => m.id !== id || m.type !== type);
     const updatedUser = { ...this.currentUser, watchLater: updatedWatchLater };
 
     this.userService.updateUser(updatedUser).subscribe(updated => {

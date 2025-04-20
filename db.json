@@ -6,26 +6,39 @@
       "email": "goku@gmail.com",
       "password": "goku123",
       "likedMovies": [
-        238,
-        240
+        {
+          "id": 278,
+          "type": "movie"
+        },
+        {
+          "id": 1396,
+          "type": "tv"
+        }
       ],
       "watchLater": [
-        278,
-        238,
-        240
+        {
+          "id": 278,
+          "type": "movie"
+        },
+        {
+          "id": 1396,
+          "type": "tv"
+        }
       ],
       "reviews": [
         {
           "movieId": 278,
           "rating": 5,
-          "comment": "this is a great movie",
-          "timestamp": "2025-04-19T23:12:37.255Z"
+          "comment": "this is really good",
+          "timestamp": "2025-04-20T05:13:34.900Z",
+          "title": "The Shawshank Redemption"
         },
         {
-          "movieId": 238,
+          "movieId": 1396,
           "rating": 5,
-          "comment": "this is really nice movie you need to keep patience",
-          "timestamp": "2025-04-19T23:13:21.397Z"
+          "comment": "really good",
+          "timestamp": "2025-04-20T05:21:40.674Z",
+          "title": "Breaking Bad"
         }
       ]
     },
@@ -35,26 +48,31 @@
       "email": "pikachu@gmail.com",
       "password": "pikachu",
       "likedMovies": [
-        497,
-        278
+        {
+          "id": 278,
+          "type": "movie"
+        }
       ],
       "watchLater": [
-        497,
-        278
+        {
+          "id": 278,
+          "type": "movie"
+        }
       ],
       "reviews": [
         {
-          "movieId": 497,
-          "rating": 5,
-          "comment": "it so long",
-          "timestamp": "2025-04-19T23:15:09.021Z"
-        },
-        {
           "movieId": 278,
           "rating": 5,
-          "comment": "good",
-          "timestamp": "2025-04-20T00:02:51.287Z",
+          "comment": "nice",
+          "timestamp": "2025-04-20T05:12:33.565Z",
           "title": "The Shawshank Redemption"
+        },
+        {
+          "movieId": 1396,
+          "rating": 5,
+          "comment": "my fav series",
+          "timestamp": "2025-04-20T05:21:01.879Z",
+          "title": "Breaking Bad"
         }
       ]
     },
@@ -64,19 +82,49 @@
       "email": "vegeta@gmail.com",
       "password": "vegeta",
       "likedMovies": [
-        1197306,
-        278
+        {
+          "id": 278,
+          "type": "movie"
+        },
+        {
+          "id": 1396,
+          "type": "tv"
+        },
+        {
+          "id": 59941,
+          "type": "tv"
+        },
+        {
+          "id": 129,
+          "type": "movie"
+        }
       ],
       "watchLater": [
-        1197306,
-        278
+        {},
+        {
+          "id": 278,
+          "type": "movie"
+        },
+        {
+          "id": 1396,
+          "type": "tv"
+        },
+        {
+          "id": 59941,
+          "type": "tv"
+        },
+        {
+          "id": 129,
+          "type": "movie"
+        }
       ],
       "reviews": [
+        {},
         {
           "movieId": 278,
           "rating": 5,
-          "comment": "this is really great",
-          "timestamp": "2025-04-20T00:56:56.526Z",
+          "comment": "amazing movies",
+          "timestamp": "2025-04-20T05:11:29.125Z",
           "title": "The Shawshank Redemption"
         }
       ]

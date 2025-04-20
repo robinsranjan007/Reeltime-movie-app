@@ -1,63 +1,85 @@
 <div *ngIf="tvShow" class="details-wrapper" [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original' + tvShow.backdrop_path + ')'">
-    <div class="overlay">
-      <div class="content">
-        <!-- Poster -->
-        <div class="poster">
-          <img [src]="'https://image.tmdb.org/t/p/w500' + tvShow.poster_path" alt="{{ tvShow.name }}" />
+  <div class="overlay">
+    <div class="content">
+      <div class="poster">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + tvShow.poster_path" alt="{{ tvShow.name }}" />
+      </div>
+
+      <div class="info">
+        <h1>{{ tvShow.name }} <span class="year">({{ tvShow.first_air_date | date: 'yyyy' }})</span></h1>
+        <div class="meta">
+          <span>{{ tvShow.first_air_date | date: 'mediumDate' }}</span> •
+          <span>{{ getGenreNames() }}</span> •
+          <span>{{ tvShow.episode_run_time[0] || 'N/A' }} min</span>
         </div>
-  
-        <!-- Info -->
-        <div class="info">
-          <h1>{{ tvShow.name }} <span class="year">({{ tvShow.first_air_date | date: 'yyyy' }})</span></h1>
-  
-          <div class="meta">
-            <span>{{ tvShow.first_air_date | date:'mediumDate' }}</span> •
-            <span>{{ getGenreNames() }}</span> •
-            <span>{{ tvShow.number_of_seasons }} Season(s)</span>
-          </div>
-  
-          <div class="score">
-            <div class="circle">{{ (tvShow.vote_average * 10) | number:'1.0-0' }}<span>%</span></div>
-            <span class="label">User Score</span>
-          </div>
-  
-          <!-- Action Buttons -->
-          <div class="action-buttons">
-            <button class="action"><mat-icon>playlist_add</mat-icon></button>
-            <button class="action"><mat-icon>favorite_border</mat-icon></button>
-            <button class="trailer"><mat-icon>play_arrow</mat-icon> Watch Trailer</button>
-          </div>
-  
-          <p class="tagline"><em>{{ tvShow.tagline }}</em></p>
-  
-          <h3>Overview</h3>
-          <p>{{ tvShow.overview }}</p>
-  
-          <div class="crew">
-            <p><strong>Status:</strong> {{ tvShow.status }}</p>
-            <p><strong>Episodes:</strong> {{ tvShow.number_of_episodes }}</p>
-          </div>
+
+        <div class="score">
+          <div class="circle">{{ (tvShow.vote_average * 10) | number:'1.0-0' }}<span>%</span></div>
+          <span class="label">User Score</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="action" (click)="toggleWatchLater()">
+            <mat-icon [ngClass]="{ 'active-icon': isWatchLater() }">playlist_add</mat-icon>
+            {{ isWatchLater() ? 'Remove from Watch Later' : 'Watch Later' }}
+          </button>
+
+          <button class="action" (click)="toggleLiked()">
+            <mat-icon [ngClass]="{ 'active-icon': isLiked() }">favorite</mat-icon>
+            {{ isLiked() ? 'Unlike' : 'Like' }}
+          </button>
+
+          <button class="trailer">
+            <mat-icon>play_arrow</mat-icon> Play Trailer
+          </button>
+        </div>
+
+        <p class="tagline"><em>{{ tvShow.tagline }}</em></p>
+
+        <h3>Overview</h3>
+        <p>{{ tvShow.overview }}</p>
+
+        <div class="crew">
+          <p><strong>Status:</strong> {{ tvShow.status }}</p>
+          <p><strong>Seasons:</strong> {{ tvShow.number_of_seasons }}</p>
+          <p><strong>Episodes:</strong> {{ tvShow.number_of_episodes }}</p>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Reviews & Rating Section -->
-  <div class="review-section">
-    <h2>Write a Review</h2>
-  
-    <div class="rating-stars">
-      <mat-icon *ngFor="let star of [1,2,3,4,5]" (click)="selectedRating = star" [class.filled]="star <= selectedRating">
-        {{ star <= selectedRating ? 'star' : 'star_border' }}
-      </mat-icon>
-      <span class="rating-label">{{ selectedRating }}/5</span>
-    </div>
-  
-    <textarea rows="4" placeholder="Write your review here..."></textarea>
-  
-    <div class="review-actions">
-      <button class="submit">Submit Review</button>
-      <button class="reset" (click)="resetReview()">Reset</button>
-    </div>
+</div>
+
+<!-- Review Section -->
+<div class="review-section">
+  <h2>Write a Review</h2>
+
+  <div class="rating-stars">
+    <mat-icon *ngFor="let star of [1,2,3,4,5]" (click)="selectedRating = star" [class.filled]="star <= selectedRating">
+      {{ star <= selectedRating ? 'star' : 'star_border' }}
+    </mat-icon>
+    <span class="rating-label">{{ selectedRating }}/5</span>
   </div>
-  
+
+  <textarea [(ngModel)]="comment" rows="4" placeholder="Write your review here..." [disabled]="hasReviewed"></textarea>
+
+  <div class="review-actions">
+    <button class="submit" (click)="submitReview()" [disabled]="hasReviewed"
+      [ngStyle]="{ 'background-color': hasReviewed ? '#888' : '#f72798' }">
+      {{ hasReviewed ? 'Review Submitted' : 'Submit Review' }}
+    </button>
+
+    <button class="reset" (click)="resetReview()" [disabled]="hasReviewed">Reset</button>
+  </div>
+</div>
+
+<!-- Display All Reviews -->
+<div class="all-reviews" *ngIf="allReviews.length > 0">
+  <h2>User Reviews</h2>
+  <div *ngFor="let r of allReviews" class="review-card">
+    <p><strong>{{ r.userName }}</strong> rated it <strong>{{ r.rating }}/5</strong></p>
+    <p class="comment">“{{ r.comment }}”</p>
+    <p class="timestamp">{{ r.timestamp | date: 'short' }}</p>
+    <button *ngIf="r.userId === currentUser?.id" (click)="deleteReview(r)">Delete</button>
+  </div>
+</div>
