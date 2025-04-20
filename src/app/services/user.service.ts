@@ -15,4 +15,12 @@ export class UserService {
   login(email: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}?email=${email}`);
   }
+  updateUser(user: any): Observable<any> {
+    return this.http.put(`${this.api}/${user.id}`, user);
+  }
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.api); // Assuming this.api = 'http://localhost:3000/users'
+  }
+  
+
 }

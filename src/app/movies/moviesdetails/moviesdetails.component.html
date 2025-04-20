@@ -1,15 +1,12 @@
 <div *ngIf="movie" class="details-wrapper" [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ')'">
   <div class="overlay">
     <div class="content">
-      <!-- Poster -->
       <div class="poster">
         <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" />
       </div>
 
-      <!-- Info -->
       <div class="info">
         <h1>{{ movie.title }} <span class="year">({{ movie.release_date | date: 'yyyy' }})</span></h1>
-
         <div class="meta">
           <span>{{ movie.release_date | date:'mediumDate' }}</span> •
           <span>{{ getGenreNames() }}</span> •
@@ -23,9 +20,19 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-          <button class="action"><mat-icon>playlist_add</mat-icon></button>
-          <button class="action"><mat-icon>favorite_border</mat-icon></button>
-          <button class="trailer"><mat-icon>play_arrow</mat-icon> Play Trailer</button>
+          <button class="action" (click)="toggleWatchLater()">
+            <mat-icon [ngClass]="{'active-icon': isWatchLater()}">playlist_add</mat-icon>
+            {{ isWatchLater() ? 'Remove from Watch Later' : 'Watch Later' }}
+          </button>
+
+          <button class="action" (click)="toggleLiked()">
+            <mat-icon [ngClass]="{'active-icon': isLiked()}">favorite</mat-icon>
+            {{ isLiked() ? 'Unlike' : 'Like' }}
+          </button>
+
+          <button class="trailer">
+            <mat-icon>play_arrow</mat-icon> Play Trailer
+          </button>
         </div>
 
         <p class="tagline"><em>{{ movie.tagline }}</em></p>
@@ -43,7 +50,7 @@
   </div>
 </div>
 
-<!-- Reviews & Rating Section -->
+<!-- Review Section -->
 <div class="review-section">
   <h2>Write a Review</h2>
 
@@ -54,10 +61,25 @@
     <span class="rating-label">{{ selectedRating }}/5</span>
   </div>
 
-  <textarea rows="4" placeholder="Write your review here..."></textarea>
+  <textarea [(ngModel)]="comment" rows="4" placeholder="Write your review here..." [disabled]="hasReviewed"></textarea>
 
   <div class="review-actions">
-    <button class="submit">Submit Review</button>
-    <button class="reset" (click)="resetReview()">Reset</button>
+    <button class="submit" (click)="submitReview()" [disabled]="hasReviewed"
+      [ngStyle]="{ 'background-color': hasReviewed ? '#888' : '#f72798' }">
+      {{ hasReviewed ? 'Review Submitted' : 'Submit Review' }}
+    </button>
+
+    <button class="reset" (click)="resetReview()" [disabled]="hasReviewed">Reset</button>
+  </div>
+</div>
+
+<!-- Display All Reviews -->
+<div class="all-reviews" *ngIf="allReviews.length > 0">
+  <h2>User Reviews</h2>
+  <div *ngFor="let r of allReviews" class="review-card">
+    <p><strong>{{ r.userName }}</strong> rated it <strong>{{ r.rating }}/5</strong></p>
+    <p class="comment">“{{ r.comment }}”</p>
+    <p class="timestamp">{{ r.timestamp | date: 'short' }}</p>
+    <button *ngIf="r.userId === currentUser?.id" (click)="deleteReview(r)">Delete</button>
   </div>
 </div>

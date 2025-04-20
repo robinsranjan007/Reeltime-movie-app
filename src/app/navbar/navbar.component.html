@@ -38,8 +38,8 @@
 <mat-menu #userMenu="matMenu">
   <ng-container *ngIf="username; else guestOptions">
     <button mat-menu-item routerLink="/profile">My Profile</button>
-    <button mat-menu-item routerLink="/watch-later">Watch Later</button>
-    <button mat-menu-item routerLink="/liked">Liked Videos</button>
+    <button mat-menu-item routerLink="/watch-later-movies">Watch Later</button>
+    <button mat-menu-item routerLink="/liked-movies">Liked Videos</button>
     <button mat-menu-item (click)="logout()">Logout</button>
   </ng-container>
   <ng-template #guestOptions>

@@ -1,13 +1,85 @@
 {
   "users": [
     {
-      "id": "f9f4",
-      "name": "Robins Ranjan",
-      "email": "robins@gmail.com",
-      "password": "robins007",
-      "likedMovies": [],
-      "watchLater": [],
-      "reviews": []
+      "id": "2d14",
+      "name": "Son goku",
+      "email": "goku@gmail.com",
+      "password": "goku123",
+      "likedMovies": [
+        238,
+        240
+      ],
+      "watchLater": [
+        278,
+        238,
+        240
+      ],
+      "reviews": [
+        {
+          "movieId": 278,
+          "rating": 5,
+          "comment": "this is a great movie",
+          "timestamp": "2025-04-19T23:12:37.255Z"
+        },
+        {
+          "movieId": 238,
+          "rating": 5,
+          "comment": "this is really nice movie you need to keep patience",
+          "timestamp": "2025-04-19T23:13:21.397Z"
+        }
+      ]
+    },
+    {
+      "id": "67ca",
+      "name": "pikachu",
+      "email": "pikachu@gmail.com",
+      "password": "pikachu",
+      "likedMovies": [
+        497,
+        278
+      ],
+      "watchLater": [
+        497,
+        278
+      ],
+      "reviews": [
+        {
+          "movieId": 497,
+          "rating": 5,
+          "comment": "it so long",
+          "timestamp": "2025-04-19T23:15:09.021Z"
+        },
+        {
+          "movieId": 278,
+          "rating": 5,
+          "comment": "good",
+          "timestamp": "2025-04-20T00:02:51.287Z",
+          "title": "The Shawshank Redemption"
+        }
+      ]
+    },
+    {
+      "id": "52ea",
+      "name": "vegeta",
+      "email": "vegeta@gmail.com",
+      "password": "vegeta",
+      "likedMovies": [
+        1197306,
+        278
+      ],
+      "watchLater": [
+        1197306,
+        278
+      ],
+      "reviews": [
+        {
+          "movieId": 278,
+          "rating": 5,
+          "comment": "this is really great",
+          "timestamp": "2025-04-20T00:56:56.526Z",
+          "title": "The Shawshank Redemption"
+        }
+      ]
     }
   ]
 }

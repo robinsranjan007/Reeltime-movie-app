@@ -17,6 +17,9 @@ import { TvTopRatedComponent } from './tvshows/toprated/toprated.component';
 import { TvdetailsComponent } from './tvshows/tvdetails/tvdetails.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { LikedmoviesComponent } from './movies/likedmovies/likedmovies.component';
+import { WatchlatermoviesComponent } from './movies/watchlatermovies/watchlatermovies.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,6 +28,8 @@ export const routes: Routes = [
   { path: 'tvshow/:id', component: TvdetailsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'liked-movies', component: LikedmoviesComponent },
+  { path: 'watch-later-movies', component: WatchlatermoviesComponent },
   {
     path: 'movies',
     children: [

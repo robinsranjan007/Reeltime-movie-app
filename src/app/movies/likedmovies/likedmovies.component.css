@@ -1,0 +1,66 @@
+/* likedmovies.component.css */
+.movie-section {
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .movie-card {
+    background: #f2f2f2;
+    border-radius: 8px;
+    padding: 12px;
+    width: 220px;
+  }
+  
+  .poster {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+  
+  .title {
+    font-size: 1.1rem;
+    margin: 10px 0 5px;
+  }
+  
+  .date {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .details-btn,
+  .remove-btn {
+    background: #f72798;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  
+  .remove-btn {
+    background: #d9534f;
+  }
+  
+  .empty-message {
+    font-style: italic;
+    color: #999;
+  }
+  
