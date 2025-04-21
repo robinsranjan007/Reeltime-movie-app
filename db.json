@@ -27,18 +27,18 @@
       ],
       "reviews": [
         {
-          "movieId": 278,
-          "rating": 5,
-          "comment": "this is really good",
-          "timestamp": "2025-04-20T05:13:34.900Z",
-          "title": "The Shawshank Redemption"
-        },
-        {
           "movieId": 1396,
           "rating": 5,
           "comment": "really good",
           "timestamp": "2025-04-20T05:21:40.674Z",
           "title": "Breaking Bad"
+        },
+        {
+          "movieId": 278,
+          "rating": 5,
+          "comment": "yeah its a nice movie",
+          "timestamp": "2025-04-21T06:23:52.163Z",
+          "title": "The Shawshank Redemption"
         }
       ]
     },
@@ -65,7 +65,8 @@
           "rating": 5,
           "comment": "nice",
           "timestamp": "2025-04-20T05:12:33.565Z",
-          "title": "The Shawshank Redemption"
+          "title": "The Shawshank Redemption",
+          "reply": "thanks for the comments"
         },
         {
           "movieId": 1396,
@@ -121,13 +122,6 @@
       "reviews": [
         {},
         {
-          "movieId": 278,
-          "rating": 5,
-          "comment": "amazing movies",
-          "timestamp": "2025-04-20T05:11:29.125Z",
-          "title": "The Shawshank Redemption"
-        },
-        {
           "movieId": 129,
           "rating": 5,
           "comment": "this is realy nice",
@@ -140,6 +134,14 @@
           "comment": "this is really nice",
           "timestamp": "2025-04-21T04:47:18.679Z",
           "title": "Spirited Away"
+        },
+        {
+          "movieId": 278,
+          "rating": 5,
+          "comment": "this is great",
+          "timestamp": "2025-04-21T06:24:46.122Z",
+          "title": "The Shawshank Redemption",
+          "reply": "thanks vegeta"
         }
       ]
     },
