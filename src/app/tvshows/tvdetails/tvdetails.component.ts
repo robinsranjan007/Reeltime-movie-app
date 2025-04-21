@@ -17,10 +17,16 @@ import { FormsModule } from '@angular/forms';
 export class TvdetailsComponent implements OnInit {
   tvShow: any;
   currentUser: any;
+  allUsers: any[] = [];
   allReviews: any[] = [];
   selectedRating: number = 0;
   comment: string = '';
   hasReviewed: boolean = false;
+
+  confirmDeleteModal = false;
+  confirmReplyDeleteModal = false;
+  reviewToDelete: any = null;
+  replyToDelete: any = null;
 
   constructor(private route: ActivatedRoute, private tmdb: TmdbService, private userService: UserService) {}
 
@@ -34,11 +40,12 @@ export class TvdetailsComponent implements OnInit {
     this.currentUser = storedUser ? JSON.parse(storedUser) : null;
 
     this.userService.getAllUsers().subscribe(users => {
+      this.allUsers = users;
       this.allReviews = users
         .flatMap((user: any) =>
           user.reviews
             .filter((r: any) => r.movieId === +id)
-            .map((r: any) => ({ ...r, userName: user.name, userId: user.id }))
+            .map((r: any) => ({ ...r, userName: user.name, userId: user.id, reply: r.reply }))
         );
       if (this.currentUser) {
         this.hasReviewed = this.allReviews.some(r => r.userId === this.currentUser.id);
@@ -57,50 +64,36 @@ export class TvdetailsComponent implements OnInit {
 
   toggleWatchLater() {
     if (!this.currentUser) return alert('Please login to use Watch Later.');
-  
     const exists = this.currentUser.watchLater.some((item: any) => item.id === this.tvShow.id && item.type === 'tv');
-    let updatedList;
-  
-    if (exists) {
-      updatedList = this.currentUser.watchLater.filter((item: any) => !(item.id === this.tvShow.id && item.type === 'tv'));
-    } else {
-      updatedList = [...this.currentUser.watchLater, { id: this.tvShow.id, type: 'tv' }];
-    }
-  
+    const updatedList = exists
+      ? this.currentUser.watchLater.filter((item: any) => !(item.id === this.tvShow.id && item.type === 'tv'))
+      : [...this.currentUser.watchLater, { id: this.tvShow.id, type: 'tv' }];
     const updatedUser = { ...this.currentUser, watchLater: updatedList };
     this.userService.updateUser(updatedUser).subscribe(updated => {
       localStorage.setItem('currentUser', JSON.stringify(updated));
       this.currentUser = updated;
     });
   }
-  
 
   toggleLiked() {
     if (!this.currentUser) return alert('Please login to like/unlike this show.');
-  
     const exists = this.currentUser.likedMovies.some((item: any) => item.id === this.tvShow.id && item.type === 'tv');
-    let updatedList;
-  
-    if (exists) {
-      updatedList = this.currentUser.likedMovies.filter((item: any) => !(item.id === this.tvShow.id && item.type === 'tv'));
-    } else {
-      updatedList = [...this.currentUser.likedMovies, { id: this.tvShow.id, type: 'tv' }];
-    }
-  
+    const updatedList = exists
+      ? this.currentUser.likedMovies.filter((item: any) => !(item.id === this.tvShow.id && item.type === 'tv'))
+      : [...this.currentUser.likedMovies, { id: this.tvShow.id, type: 'tv' }];
     const updatedUser = { ...this.currentUser, likedMovies: updatedList };
     this.userService.updateUser(updatedUser).subscribe(updated => {
       localStorage.setItem('currentUser', JSON.stringify(updated));
       this.currentUser = updated;
     });
   }
-  
 
   isLiked(): boolean {
-    return this.currentUser?.likedMovies.some((item: any) => item.id === this.tvShow.id && item.type === 'tv');
+    return this.currentUser?.likedMovies?.some((item: any) => item.id === this.tvShow.id && item.type === 'tv');
   }
-  
+
   isWatchLater(): boolean {
-    return this.currentUser?.watchLater.some((item: any) => item.id === this.tvShow.id && item.type === 'tv');
+    return this.currentUser?.watchLater?.some((item: any) => item.id === this.tvShow.id && item.type === 'tv');
   }
 
   submitReview() {
@@ -108,7 +101,6 @@ export class TvdetailsComponent implements OnInit {
     if (!this.selectedRating || !this.comment.trim()) {
       return alert('Please provide a rating and comment before submitting.');
     }
-
     const review = {
       movieId: this.tvShow.id,
       rating: this.selectedRating,
@@ -116,7 +108,6 @@ export class TvdetailsComponent implements OnInit {
       timestamp: new Date(),
       title: this.tvShow.name
     };
-
     const updatedUser = { ...this.currentUser, reviews: [...this.currentUser.reviews, review] };
     this.userService.updateUser(updatedUser).subscribe(updated => {
       localStorage.setItem('currentUser', JSON.stringify(updated));
@@ -127,16 +118,72 @@ export class TvdetailsComponent implements OnInit {
     });
   }
 
-  deleteReview(review: any) {
-    if (!this.currentUser || review.userId !== this.currentUser.id) return;
+  confirmDelete(review: any) {
+    this.reviewToDelete = review;
+    this.confirmDeleteModal = true;
+  }
 
-    const updatedReviews = this.currentUser.reviews.filter((r: any) => r.timestamp !== review.timestamp);
-    const updatedUser = { ...this.currentUser, reviews: updatedReviews };
-    this.userService.updateUser(updatedUser).subscribe(updated => {
-      localStorage.setItem('currentUser', JSON.stringify(updated));
-      this.currentUser = updated;
+  deleteReviewConfirmed() {
+    const review = this.reviewToDelete;
+    this.userService.getAllUsers().subscribe(users => {
+      const updatedUsers = users.map(user => {
+        const filteredReviews = user.reviews.filter((r: any) => r.timestamp !== review.timestamp);
+        return { ...user, reviews: filteredReviews };
+      });
+      updatedUsers.forEach(user => {
+        this.userService.updateUser(user).subscribe(() => {
+          if (user.id === this.currentUser.id) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUser = user;
+          }
+        });
+      });
       this.allReviews = this.allReviews.filter((r: any) => r.timestamp !== review.timestamp);
       this.hasReviewed = false;
+      this.confirmDeleteModal = false;
+    });
+  }
+
+  cancelDelete() {
+    this.reviewToDelete = null;
+    this.confirmDeleteModal = false;
+  }
+
+  confirmDeleteReply(reply: any) {
+    this.replyToDelete = reply;
+    this.confirmReplyDeleteModal = true;
+  }
+
+  deleteReplyConfirmed() {
+    const r = this.replyToDelete;
+    const userIndex = this.allUsers.findIndex((u: any) => u.id === r.userId);
+    if (userIndex === -1) return;
+    const updatedUser = { ...this.allUsers[userIndex] };
+    const reviewIndex = updatedUser.reviews.findIndex((rev: any) => rev.timestamp === r.timestamp);
+    if (reviewIndex === -1) return;
+    delete updatedUser.reviews[reviewIndex].reply;
+    this.userService.updateUser(updatedUser).subscribe(() => {
+      delete r.reply;
+      this.confirmReplyDeleteModal = false;
+    });
+  }
+
+  cancelReplyDelete() {
+    this.replyToDelete = null;
+    this.confirmReplyDeleteModal = false;
+  }
+
+  submitReply(r: any) {
+    if (!r.adminReply?.trim()) return alert('Reply cannot be empty.');
+    const userIndex = this.allUsers.findIndex((u: any) => u.id === r.userId);
+    if (userIndex === -1) return;
+    const updatedUser = { ...this.allUsers[userIndex] };
+    const reviewIndex = updatedUser.reviews.findIndex((rev: any) => rev.timestamp === r.timestamp);
+    if (reviewIndex === -1) return;
+    updatedUser.reviews[reviewIndex].reply = r.adminReply.trim();
+    this.userService.updateUser(updatedUser).subscribe(() => {
+      r.reply = r.adminReply.trim();
+      delete r.adminReply;
     });
   }
 }

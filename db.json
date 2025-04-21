@@ -31,14 +31,16 @@
           "rating": 5,
           "comment": "really good",
           "timestamp": "2025-04-20T05:21:40.674Z",
-          "title": "Breaking Bad"
+          "title": "Breaking Bad",
+          "reply": "thanks for the resoponse"
         },
         {
           "movieId": 278,
           "rating": 5,
           "comment": "yeah its a nice movie",
           "timestamp": "2025-04-21T06:23:52.163Z",
-          "title": "The Shawshank Redemption"
+          "title": "The Shawshank Redemption",
+          "reply": "thanks goku"
         }
       ]
     },
@@ -51,12 +53,20 @@
         {
           "id": 278,
           "type": "movie"
+        },
+        {
+          "id": 1396,
+          "type": "tv"
         }
       ],
       "watchLater": [
         {
           "id": 278,
           "type": "movie"
+        },
+        {
+          "id": 1396,
+          "type": "tv"
         }
       ],
       "reviews": [
@@ -70,10 +80,11 @@
         },
         {
           "movieId": 1396,
-          "rating": 5,
-          "comment": "my fav series",
-          "timestamp": "2025-04-20T05:21:01.879Z",
-          "title": "Breaking Bad"
+          "rating": 4,
+          "comment": "yeah this is one of the best series in the world till now",
+          "timestamp": "2025-04-21T21:47:13.929Z",
+          "title": "Breaking Bad",
+          "reply": "thanks for the feedback"
         }
       ]
     },
@@ -98,6 +109,10 @@
         {
           "id": 129,
           "type": "movie"
+        },
+        {
+          "id": 94605,
+          "type": "tv"
         }
       ],
       "watchLater": [
@@ -117,6 +132,10 @@
         {
           "id": 129,
           "type": "movie"
+        },
+        {
+          "id": 94605,
+          "type": "tv"
         }
       ],
       "reviews": [
@@ -129,19 +148,20 @@
           "title": "Spirited Away"
         },
         {
-          "movieId": 129,
-          "rating": 5,
-          "comment": "this is really nice",
-          "timestamp": "2025-04-21T04:47:18.679Z",
-          "title": "Spirited Away"
-        },
-        {
           "movieId": 278,
           "rating": 5,
           "comment": "this is great",
           "timestamp": "2025-04-21T06:24:46.122Z",
           "title": "The Shawshank Redemption",
           "reply": "thanks vegeta"
+        },
+        {
+          "movieId": 94605,
+          "rating": 5,
+          "comment": "this is a great series",
+          "timestamp": "2025-04-21T21:31:38.235Z",
+          "title": "Arcane",
+          "reply": "thanks for the response"
         }
       ]
     },
