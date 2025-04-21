@@ -1,0 +1,29 @@
+ 
+  
+  <div class="dashboard-wrapper">
+    <h2>Registered Users</h2>
+  
+    <div class="user-table" *ngIf="users.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button (click)="viewDetails(user.id)">View Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <p *ngIf="users.length === 0">No users found.</p>
+  </div>
+  

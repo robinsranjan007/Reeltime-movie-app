@@ -19,7 +19,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LikedmoviesComponent } from './movies/likedmovies/likedmovies.component';
 import { WatchlatermoviesComponent } from './movies/watchlatermovies/watchlatermovies.component';
-
+import { AdminDashboardComponent } from './dashboard/dashboard.component';
+import { UserDetailsComponent } from './dashboard/userdetails/userdetails.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,6 +31,13 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'liked-movies', component: LikedmoviesComponent },
   { path: 'watch-later-movies', component: WatchlatermoviesComponent },
+  {
+    path: 'admin',
+    children: [
+      { path: '', component:  AdminDashboardComponent },
+      { path: 'user/:id', component: UserDetailsComponent }
+    ]
+  },
   {
     path: 'movies',
     children: [

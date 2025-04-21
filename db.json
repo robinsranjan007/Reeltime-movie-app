@@ -126,8 +126,31 @@
           "comment": "amazing movies",
           "timestamp": "2025-04-20T05:11:29.125Z",
           "title": "The Shawshank Redemption"
+        },
+        {
+          "movieId": 129,
+          "rating": 5,
+          "comment": "this is realy nice",
+          "timestamp": "2025-04-21T04:47:08.439Z",
+          "title": "Spirited Away"
+        },
+        {
+          "movieId": 129,
+          "rating": 5,
+          "comment": "this is really nice",
+          "timestamp": "2025-04-21T04:47:18.679Z",
+          "title": "Spirited Away"
         }
       ]
+    },
+    {
+      "id": "admin001",
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "likedMovies": [],
+      "watchLater": [],
+      "reviews": []
     }
   ]
 }

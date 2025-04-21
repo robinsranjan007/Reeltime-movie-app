@@ -5,9 +5,16 @@
       Realtime
     </span>
 
-    <button mat-button routerLink="/home">Home</button>
-    <button mat-button [matMenuTriggerFor]="moviesMenu">Movies</button>
-    <button mat-button [matMenuTriggerFor]="tvMenu">TV Shows</button>
+    <ng-container *ngIf="username?.toLowerCase() !== 'admin'; else adminNav">
+      <button mat-button routerLink="/home">Home</button>
+      <button mat-button [matMenuTriggerFor]="moviesMenu">Movies</button>
+      <button mat-button [matMenuTriggerFor]="tvMenu">TV Shows</button>
+    </ng-container>
+    
+    <ng-template #adminNav>
+      <button mat-button routerLink="/admin">Dashboard</button>
+    </ng-template>
+    
   </div>
 
   <div class="nav-right">
@@ -34,14 +41,22 @@
   <button mat-menu-item routerLink="/tv/top-rated">Top Rated</button>
 </mat-menu>
 
+ 
 <!-- User Menu -->
 <mat-menu #userMenu="matMenu">
   <ng-container *ngIf="username; else guestOptions">
-    <button mat-menu-item routerLink="/profile">My Profile</button>
-    <button mat-menu-item routerLink="/watch-later-movies">Watch Later</button>
-    <button mat-menu-item routerLink="/liked-movies">Liked Videos</button>
-    <button mat-menu-item (click)="logout()">Logout</button>
+    <ng-container *ngIf="username?.toLowerCase() === 'admin'; else regularUserMenu">
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </ng-container>
+
+    <ng-template #regularUserMenu>
+      <button mat-menu-item routerLink="/profile">My Profile</button>
+      <button mat-menu-item routerLink="/watch-later-movies">Watch Later</button>
+      <button mat-menu-item routerLink="/liked-movies">Liked Videos</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </ng-template>
   </ng-container>
+
   <ng-template #guestOptions>
     <button mat-menu-item routerLink="/login">Login</button>
     <button mat-menu-item routerLink="/register">Sign Up</button>

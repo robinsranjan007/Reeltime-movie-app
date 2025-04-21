@@ -1,0 +1,26 @@
+<div class="user-details-container" *ngIf="user">
+    <h2>User: {{ user.name }}</h2>
+    <p>Email: {{ user.email }}</p>
+  
+    <hr />
+  
+    <h3>Liked Movies / Shows</h3>
+<div class="grid">
+  <div *ngFor="let m of liked" class="card">
+    <img [src]="'https://image.tmdb.org/t/p/w300' + m.poster_path" alt="{{ m.title || m.name }}">
+    <p>{{ m.title || m.name }}</p>
+    <a [routerLink]="[m.media_type === 'tv' ? '/tvshow' : '/movie', m.id]" class="details-btn">Details</a>
+  </div>
+</div>
+
+<h3>Watch Later List</h3>
+<div class="grid">
+  <div *ngFor="let m of watchLater" class="card">
+    <img [src]="'https://image.tmdb.org/t/p/w300' + m.poster_path" alt="{{ m.title || m.name }}">
+    <p>{{ m.title || m.name }}</p>
+    <a [routerLink]="[m.media_type === 'tv' ? '/tvshow' : '/movie', m.id]" class="details-btn">Details</a>
+  </div>
+</div>
+
+  </div>
+  

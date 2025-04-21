@@ -26,14 +26,23 @@ export class LoginComponent {
   handleLogin() {
     this.userService.login(this.email).subscribe(users => {
       const user = users[0];
-
+  
       if (user && user.password === this.password) {
-        this.authService.setUser(user); // ✅ Notify all components
+        this.authService.setUser(user); // ✅ store current user
+  
         alert(`Welcome, ${user.name}! You have been successfully logged in.`);
-        this.router.navigate(['/home']);
+  
+        // 🔥 Redirect based on role
+        if (user.name.toLowerCase() === 'admin') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+  
       } else {
         this.errorMessage = 'Invalid email or password';
       }
     });
   }
+  
 }
